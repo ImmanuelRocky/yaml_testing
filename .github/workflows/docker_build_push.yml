@@ -1,0 +1,33 @@
+name: docker push 
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+jobs:
+  build and deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # checkout github code
+      - name: git checkout 
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Docker Buildx
+      - name: Set up docker build 
+        uses: docker/setup-buildx-action@v1
+
+      # Step 3: Log into DockerHub
+      - name: Log in to DockerHub
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      # Step 4: Build Docker image
+      - name: Building Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:latest .
+      
+      # Step 5: Push Docker image to Docker Hub
+      - name: Pushing docker image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest
