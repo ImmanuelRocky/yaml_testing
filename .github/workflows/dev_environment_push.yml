@@ -1,0 +1,14 @@
+name: dev environment push
+
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print notification
+        run: echo " Dev code pushed! Deployment is ready "

@@ -1,0 +1,15 @@
+name: Manual Deployment - Dev Branch
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy_dev:
+    runs-on: ubuntu-latest
+
+    steps:
+      -name : checkout code
+       run: actions/checkout@v2
+
+       -name: Print environment
+        run: echo " Deployment succesfull on dev environment "
